@@ -1,7 +1,6 @@
 package com.daa.demo.mvp;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -43,5 +42,10 @@ public abstract class BaseView implements View {
     public TextureRegion getCurrentFrame() {
         this._stateTime += Gdx.graphics.getDeltaTime();
         return this._animation.getKeyFrame(this._stateTime, true);
+    }
+
+    @Override
+    public void dispose() {
+        this._animation = null;
     }
 }

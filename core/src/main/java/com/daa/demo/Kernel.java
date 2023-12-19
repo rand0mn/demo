@@ -5,10 +5,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.daa.demo.events.EventDispatcher;
 import com.daa.demo.mvp.View;
 import com.daa.demo.mvp.ViewFactory;
-import com.daa.demo.player.*;
+import com.daa.demo.player.KeyboardPublisher;
+import com.daa.demo.player.Player;
+import com.daa.demo.player.PlayerPresenter;
+import com.daa.demo.player.PlayerView;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -55,5 +57,11 @@ public class Kernel extends ApplicationAdapter {
     @Override
     public void dispose() {
         this._batch.dispose();
+        this._batch = null;
+        for (View view: this._views) {
+            view.dispose();
+        }
+        this._views = null;
+        System.exit(0);
     }
 }

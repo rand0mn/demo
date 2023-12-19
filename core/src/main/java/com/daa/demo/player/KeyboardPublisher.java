@@ -2,7 +2,6 @@ package com.daa.demo.player;
 
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.math.Vector2;
 import com.daa.demo.events.EventDispatcher;
 import com.daa.demo.events.PlayerEvent;
 import com.daa.demo.utils.Vector2Utils;
