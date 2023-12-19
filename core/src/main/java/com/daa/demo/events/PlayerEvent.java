@@ -11,11 +11,11 @@ public class PlayerEvent extends Event {
 
     public PlayerEvent(PlayerAction action, Vector2 direction) {
         this._action = action;
-        _direction = direction;
+        this._direction = direction;
     }
 
     public PlayerAction getAction() {
-        return _action;
+        return this._action;
     }
     public boolean isMoveAction() {
         return Stream.of(
@@ -25,5 +25,5 @@ public class PlayerEvent extends Event {
             PlayerAction.RIGHT
         ).anyMatch(x -> x == this.getAction());
     }
-    public Vector2 getDirection() {return _direction; }
+    public Vector2 getDirection() {return this._direction; }
 }

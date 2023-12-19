@@ -27,7 +27,7 @@ public abstract class BaseView implements View {
     }
 
     public Vector2 getPosition() {
-        return this._position;
+        return this._position.cpy();
     }
 
     public void setPosition(Vector2 position) {

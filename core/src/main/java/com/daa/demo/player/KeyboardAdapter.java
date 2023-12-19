@@ -9,11 +9,10 @@ import com.daa.demo.utils.Vector2Utils;
 import java.util.Collection;
 import java.util.HashSet;
 
-public class KeyboardPublisher extends InputAdapter {
+/* TODO: custom keys mapping */
+public class KeyboardAdapter extends InputAdapter {
     private final EventDispatcher _events = EventDispatcher.getInstance();
     private final Collection<Integer> _keysDown = new HashSet<>();
-
-
 
     @Override
     public boolean keyDown(int keycode) {

@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.daa.demo.mvp.View;
 import com.daa.demo.mvp.ViewFactory;
-import com.daa.demo.player.KeyboardPublisher;
+import com.daa.demo.player.KeyboardAdapter;
 import com.daa.demo.player.Player;
 import com.daa.demo.player.PlayerPresenter;
 import com.daa.demo.player.PlayerView;
@@ -35,7 +35,7 @@ public class Kernel extends ApplicationAdapter {
     public void create() {
         _batch = new SpriteBatch();
 
-        Gdx.input.setInputProcessor(new KeyboardPublisher());
+        Gdx.input.setInputProcessor(new KeyboardAdapter());
 
         this.createScene();
     }
