@@ -1,9 +1,5 @@
 package com.daa.demo.loop;
 
-import com.daa.demo.events.EventDispatcher;
-import com.daa.demo.events.LoopUpdateEvent;
-import com.daa.demo.events.RoundEndEvent;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -35,18 +31,6 @@ public class GameLoop {
         for (Job job: this._singleRunJobs) {
             this._scheduler.submit(job);
         }
-//        var updateEvent = new LoopUpdateEvent();
-//        this._scheduler.submitJob(
-//            "main",
-//            () -> EventDispatcher.getInstance().dispatch(updateEvent),
-//            this._startAt,
-//            this._mainLoopTickMilliseconds
-//        );
-//
-//        this._scheduler.submitOnce(
-//            () -> EventDispatcher.getInstance().dispatch(new RoundEndEvent()),
-//            this._roundLengthSeconds
-//        );
 
         this._isInitialized = true;
         this._isRunning = true;

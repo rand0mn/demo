@@ -2,12 +2,15 @@ package com.daa.demo;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.ai.utils.SimpleNonBlockingSemaphore;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
-import com.daa.demo.enemy.EnemyFactory;
-import com.daa.demo.enemy.EnemyPresenter;
-import com.daa.demo.enemy.EnemyView;
+import com.daa.demo.enemy.*;
+import com.daa.demo.events.EnemySpawnedEvent;
+import com.daa.demo.events.EventDispatcher;
+import com.daa.demo.events.EventHandler;
+import com.daa.demo.events.PlayerEvent;
 import com.daa.demo.loop.GameLoop;
 import com.daa.demo.loop.MainJob;
 import com.daa.demo.loop.RoundJob;
@@ -20,6 +23,7 @@ import com.daa.demo.player.PlayerView;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -29,6 +33,15 @@ public class Kernel extends ApplicationAdapter {
     private Collection<View> _views = new ArrayList<>();
     private GameLoop _loop;
 
+    /* костыльное создание вьюх по чере фабрику. Создавать в рендер треде */
+    private final EventHandler<EnemySpawnedEvent> _onEnemySpawn = event -> Gdx.app.postRunnable(() -> {
+        var views = new ArrayList<View>();
+        for(Enemy enemy: event.getEnemies()) {
+            views.add(ViewFactory.create(EnemyView.class, EnemyPresenter.class, enemy));
+        }
+        this._views.addAll(views);
+    });
+
     private void createScene() {
         var player = ViewFactory.create(
             PlayerView.class,
@@ -36,29 +49,14 @@ public class Kernel extends ApplicationAdapter {
             new Player(new Vector2(10, 10))
         );
 
-        var enemy = ViewFactory.create(
-            EnemyView.class,
-            EnemyPresenter.class,
-            EnemyFactory.create()
-        );
-
         this._views.add(player);
-        this._views.add(enemy);
-    }
-
-    private void spawnEnemies() {
-        var enemies = Stream.generate(EnemyFactory::new)
-            .limit(2)
-            .map(enemy -> ViewFactory.create(EnemyView.class, EnemyPresenter.class, enemy.get()))
-            .collect(Collectors.toCollection(ArrayList::new));
-        this._views.addAll(enemies);
     }
 
     private GameLoop buildGameLoop() {
         var loop = new GameLoop();
         loop.add(new MainJob());
         loop.add(new RoundJob(30));
-
+        loop.add(new SpawnEnemyJob(10, 2));
         return loop;
     }
     @Override
@@ -67,19 +65,20 @@ public class Kernel extends ApplicationAdapter {
         this._batch = new SpriteBatch();
 
         Gdx.input.setInputProcessor(new KeyboardAdapter());
+        EventDispatcher.getInstance().register(EnemySpawnedEvent.class, this._onEnemySpawn);
 
-        this._loop.run();
         this.createScene();
+        this._loop.run();
+
     }
 
     @Override
     public void render() {
+        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         if (!this._loop.isRunning()) {
             return;
         }
-
-        Gdx.gl.glClearColor(0.15f, 0.15f, 0.2f, 1f);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         this._batch.begin();
 
