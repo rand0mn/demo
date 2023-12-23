@@ -12,9 +12,13 @@ public final class EventDispatcher {
 
     public static EventDispatcher getInstance() {
         EventDispatcher result = _instance;
-        if (result == null) {
-            _instance = new EventDispatcher();
+
+        synchronized (EventDispatcher.class) {
+            if (result == null) {
+                _instance = new EventDispatcher();
+            }
         }
+
 
         return _instance;
     }

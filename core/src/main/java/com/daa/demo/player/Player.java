@@ -17,4 +17,12 @@ public class Player extends BaseModel {
         var position = this.getPosition().add(direction.cpy().scl(this._speed));
         this.setPosition(position);
     }
+
+    public Vector2 getDirection() {
+        return _direction.cpy();
+    }
+
+    public void setDirection(Vector2 direction) {
+        this._direction = direction.cpy();
+    }
 }

@@ -6,5 +6,4 @@ import com.daa.demo.player.PlayerAction;
 
 public interface View extends Position2d, Disposable {
     void render(Batch batch);
-    void setState(PlayerAction action);
 }

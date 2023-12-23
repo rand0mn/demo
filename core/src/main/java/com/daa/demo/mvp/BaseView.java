@@ -32,7 +32,6 @@ public abstract class BaseView implements View {
 
     public void setPosition(Vector2 position) {
         this._position = position.cpy();
-        Gdx.app.log("view", this._position.toString());
     }
 
     public void setAnimation(Animation<TextureRegion> animation) {

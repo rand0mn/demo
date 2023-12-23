@@ -4,8 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import java.util.Arrays;
 import java.util.stream.Stream;
 
+/* TODO: Пока грузим как-нибудь. Нет понимания как хранить ассеты,
+    и как с ними раотать в libgdx */
 public class Assets {
     private Assets() {
 
@@ -36,5 +39,12 @@ public class Assets {
 
     public static TextureRegion[] getPlayerRunningTextures(boolean flip) {
         return Assets.loadFrames("blue_witch/B_witch_run.png", 1, 8, flip, false);
+    }
+
+    public static TextureRegion[] getSlimeMovingTexture1() {
+        /* две анимации в одном файле по строчно */
+        return Arrays.stream(
+                Assets.loadFrames("big_slime/Slime_SS.png", 7, 2, false, false)
+            ).limit(6).toArray(TextureRegion[]::new);
     }
 }
