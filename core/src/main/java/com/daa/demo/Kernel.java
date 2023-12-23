@@ -42,6 +42,7 @@ public class Kernel extends ApplicationAdapter {
         this._views.addAll(views);
     });
 
+    /* TODO: move out. Check scenes api from libgdx. */
     private void createScene() {
         var player = ViewFactory.create(
             PlayerView.class,
@@ -52,7 +53,10 @@ public class Kernel extends ApplicationAdapter {
         this._views.add(player);
     }
 
+    /* TODO: move out to factory */
     private GameLoop buildGameLoop() {
+        /* TODO: Replace with Command/CommandHandlers?,
+            difference between event handlers|command handler|jobs? */
         var loop = new GameLoop();
         loop.add(new MainJob());
         loop.add(new RoundJob(30));
@@ -65,6 +69,8 @@ public class Kernel extends ApplicationAdapter {
         this._batch = new SpriteBatch();
 
         Gdx.input.setInputProcessor(new KeyboardAdapter());
+
+        /* TODO: why here? */
         EventDispatcher.getInstance().register(EnemySpawnedEvent.class, this._onEnemySpawn);
 
         this.createScene();

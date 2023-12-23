@@ -4,6 +4,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.daa.demo.mvp.BaseModel;
 
 
+/* TODO:
+    баг-1, если персонаж идет налево, то после остановки он всегд поварачивается вправо.
+    баг-2, движение только в четрыех направления, нельзя двигать по диагнонали.
+    баг-3, зажать вправо, не отпуская вправо нажать и отпустить влево. Итог: зажата кнопка вправо, персонаж идет влево.
+ */
 public class Player extends BaseModel {
     private final float _speed = 2;
     private Vector2 _direction = Vector2.Zero;

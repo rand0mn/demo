@@ -5,6 +5,7 @@ import com.daa.demo.player.PlayerAction;
 
 import java.util.stream.Stream;
 
+/* TODO split on smaller events: PlayerMoved, PlayerWentIdle, PlayerInteracted ... etc */
 public class PlayerEvent extends Event {
     private final PlayerAction _action;
     private final Vector2 _direction;
