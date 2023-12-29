@@ -47,4 +47,10 @@ public class Assets {
                 Assets.loadFrames("big_slime/Slime_SS.png", 7, 2, false, false)
             ).limit(6).toArray(TextureRegion[]::new);
     }
+
+    public static TextureRegion[] getHeartsBarUi() {
+        return Arrays.stream(
+            Assets.loadFrames("ui/Hearts.png",5, 3, false, false)
+        ).limit(5).toArray(TextureRegion[]::new);
+    }
 }

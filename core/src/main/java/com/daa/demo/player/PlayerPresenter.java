@@ -24,6 +24,8 @@ public class PlayerPresenter extends BasePresenter<PlayerView, Player> {
         }
 
         model.setDirection(event.getDirection());
+        //view.setCameraPosition();
+
     };
 
     public PlayerPresenter(PlayerView view, Player model) {
