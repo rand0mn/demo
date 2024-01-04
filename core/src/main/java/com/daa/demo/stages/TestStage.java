@@ -2,21 +2,20 @@ package com.daa.demo.stages;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.daa.demo.enemy.SpawnEnemyJob;
 import com.daa.demo.events.EnemySpawnedEvent;
 import com.daa.demo.events.EventDispatcher;
-import com.daa.demo.events.EventHandler;
 import com.daa.demo.handlers.EnemySpawnedHandler;
 import com.daa.demo.loop.GameLoop;
 import com.daa.demo.loop.GameLoopFactory;
-import com.daa.demo.loop.MainJob;
-import com.daa.demo.loop.RoundJob;
 import com.daa.demo.mvp.ViewFactory;
 import com.daa.demo.player.Player;
 import com.daa.demo.player.PlayerPresenter;
 import com.daa.demo.player.PlayerView;
 import com.daa.demo.scenes.MainGameScene;
 import com.daa.demo.scenes.Scene;
+import com.daa.demo.ui.HudView;
+import com.daa.demo.ui.Root;
+import com.daa.demo.ui.UiPresenter;
 
 import java.util.ArrayList;
 
@@ -25,13 +24,20 @@ public class TestStage implements Stage {
     private GameLoop _loop;
 
     public TestStage() {
-        var player = (PlayerView) ViewFactory.create(
+        var player = new Player(
+            new Vector2(0, 0),
+            100
+        );
+        var playerView = (PlayerView) ViewFactory.create(
             PlayerView.class,
             PlayerPresenter.class,
-            new Player(new Vector2(0, 0))
+            player
         );
 
-        this._scene = new MainGameScene(player, new ArrayList<>());
+        var hud = new HudView(new Root());
+        new UiPresenter(hud, player);
+
+        this._scene = new MainGameScene(playerView, hud, new ArrayList<>());
         this._loop = GameLoopFactory.create();
 
         EventDispatcher.getInstance().register(EnemySpawnedEvent.class, event -> Gdx.app.postRunnable(() -> {

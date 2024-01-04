@@ -12,10 +12,12 @@ import com.daa.demo.mvp.BaseModel;
  */
 public class Player extends BaseModel {
     private final float _speed = 1;
+    private int _health;
     private Vector2 _direction = Vector2.Zero;
 
-    public Player(Vector2 position) {
+    public Player(Vector2 position, int health) {
         super(position);
+        this._health = health;
     }
 
     public void move(Vector2 direction) {
@@ -30,5 +32,9 @@ public class Player extends BaseModel {
 
     public void setDirection(Vector2 direction) {
         this._direction = direction.cpy();
+    }
+
+    public int getHealth() {
+        return _health;
     }
 }
