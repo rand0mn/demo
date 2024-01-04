@@ -8,19 +8,20 @@ import com.daa.demo.mvp.View;
 
 import java.util.concurrent.TimeUnit;
 
-public class EnemyPresenter extends BasePresenter {
+public class EnemyPresenter extends BasePresenter<EnemyView, Enemy> {
 
     private final EventHandler<RoundEndEvent> _onRoundEnd = event -> {
         Gdx.app.log("Enemy", "Round End");
     };
 
     private final EventHandler<LoopUpdateEvent> _onLoopUpdate = event -> {
+        this.view.setPosition(this.model.getPosition());
     };
 
 
-
-    public EnemyPresenter(View view, Model model) {
+    public EnemyPresenter(EnemyView view, Enemy model) {
         super(view, model);
+        this.view.setPosition(this.model.getPosition());
         EventDispatcher.getInstance().register(RoundEndEvent.class, this._onRoundEnd);
         EventDispatcher.getInstance().register(LoopUpdateEvent.class, this._onLoopUpdate);
 

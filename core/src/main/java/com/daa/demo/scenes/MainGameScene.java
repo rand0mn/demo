@@ -11,8 +11,7 @@ import com.daa.demo.mvp.BatchRender;
 import com.daa.demo.mvp.View;
 import com.daa.demo.player.KeyboardAdapter;
 import com.daa.demo.player.PlayerView;
-import com.daa.demo.ui.Hud;
-import com.daa.demo.ui.Root;
+import com.daa.demo.ui.HudView;
 
 import java.util.Collection;
 
@@ -28,13 +27,14 @@ public class MainGameScene implements Scene {
     private final Viewport _viewport;
     private final Camera _camera;
 
-    public MainGameScene(PlayerView player, Collection<View> actors) {
+    public MainGameScene(PlayerView player, HudView hudView, Collection<View> actors) {
         this._camera = new OrthographicCamera();
         this._viewport = new ScreenViewport(this._camera);
 
         this._player = player;
         this._actors = actors;
-        this._hud = new Hud(new Root());
+        this._hud = hudView; //new Hud(new Root());
+
 
 
         this._mainSpriteBatch = new SpriteBatch();

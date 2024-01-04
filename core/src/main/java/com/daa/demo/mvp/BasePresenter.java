@@ -6,6 +6,6 @@ public abstract class BasePresenter<V extends View, M extends Model> implements 
     protected BasePresenter(V view, M model) {
         this.view = view;
         this.model = model;
-        view.setPosition(model.getPosition());
+        //view.setPosition(model.getPosition());
     }
 }
