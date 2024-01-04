@@ -1,5 +1,6 @@
 package com.daa.demo.player;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.daa.demo.mvp.BaseModel;
 
@@ -10,7 +11,7 @@ import com.daa.demo.mvp.BaseModel;
     баг-3, зажать вправо, не отпуская вправо нажать и отпустить влево. Итог: зажата кнопка вправо, персонаж идет влево.
  */
 public class Player extends BaseModel {
-    private final float _speed = 2;
+    private final float _speed = 1;
     private Vector2 _direction = Vector2.Zero;
 
     public Player(Vector2 position) {

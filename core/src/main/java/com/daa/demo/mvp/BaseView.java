@@ -1,6 +1,7 @@
 package com.daa.demo.mvp;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -9,16 +10,17 @@ import com.badlogic.gdx.math.Vector2;
 public abstract class BaseView implements View {
     private float _stateTime = 0;
 
-    private Vector2 _position = new Vector2(0,0);
+    protected Vector2 _position = new Vector2(0,0);
     private Animation<TextureRegion> _animation;
 
     @Override
     public void render(Batch batch) {
         Vector2 position = this.getPosition();
         var frame = this.getCurrentFrame();
-
+//        var texture = frame.getTexture();
+//        texture.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
         batch.draw(
-            this.getCurrentFrame(),
+            frame,
             position.x,
             position.y,
             frame.getRegionWidth() * 3f,
